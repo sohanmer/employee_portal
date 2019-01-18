@@ -34,7 +34,7 @@
                     @endif
                 </div>
                 
-                    @if($file['cover_image'] == null and $file['parent_directory']==null)
+                    @if($file['cover_image'] == null and $file['parent_directory']!=null)
                         <div class="col-md-8 col-sm-8">
                             <h4><a href="/employee_portal/public/show?abc={{$file['id']}}">{{$file['file_name']}}</a></h4>
                             <a href="#"><i class="fas fa-download pull-right ml-4"></i></a>
