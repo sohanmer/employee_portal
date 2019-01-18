@@ -8,4 +8,6 @@ class directorie extends Model
 {
     protected $table = 'directories';
 
+    
+
 }

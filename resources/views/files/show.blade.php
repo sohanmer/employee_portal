@@ -19,11 +19,58 @@
     </div>
 @endif
 <div class="container">
-        <h1>{{$abc['id']}}</h1> 
-        </div>
-        <br>
-  
-   
-   
+@if(count($abc)>0)
+    @foreach($xyz as $file)
+        @if($file['parent_directory']== $abc['id'])
+            <div class="well col-md-3 m-5">
+            <div class="row">
+                <div class="col-md-3 col-sm-3">
+                    @if($file['cover_image'] != null)
+                        @if($file['type'] = "jpg")
+                            <h1><i class="fas fa-image"></i></h1>
+                        @endif
+                    @else
+                        <h1><i class="fas fa-folder"></i></h1>
+                    @endif
+                </div>
+                
+                    @if($file['cover_image'] == null and $file['parent_directory']==null)
+                        <div class="col-md-8 col-sm-8">
+                            <h4><a href="/employee_portal/public/show?abc={{$file['id']}}">{{$file['file_name']}}</a></h4>
+                            <a href="#"><i class="fas fa-download pull-right ml-4"></i></a>
+                            <div data-toggle="tooltip" data-placement="right" title="Uploaded By {{$file['created_at']}} by {{$file['owner_name']}}"><i class="far fa-question-circle pull-right align-bottom"></i></div>
+                                @if(!Auth::guest())
+                                @if(Auth::user()->id == $file["owner_id"])
+                                    {!!Form::open(['action'=>['Eportalcontroller@destroy', $file['id']], 'method'=>'POST'])!!}
+                                        {{Form::hidden('_method','DELETE')}}
+                                        {{Form::button('<i class="fas fa-trash-alt"></i>', ['type' => 'submit', 'class' => ' text-danger border-0 align-top pull-right mr-4']  )}}
+                                    {!!Form::close()!!}
+                                @endif
+                                @endif 
+                        </div>
+                    @else                      
+                        <div class="col-md-8 col-sm-8">
+                            <h4>{{$file['file_name']}}</h4>
+                            <a href="#"><i class="fas fa-download pull-right ml-4"></i></a>
+                            <div data-toggle="tooltip" data-placement="right" title="Uploaded By {{$file['created_at']}} by {{$file['owner_name']}}"><i class="far fa-question-circle pull-right align-bottom"></i></div>
+                                @if(!Auth::guest())
+                                @if(Auth::user()->id == $file["owner_id"])
+                                    {!!Form::open(['action'=>['Eportalcontroller@destroy', $file['id']], 'method'=>'POST'])!!}
+                                        {{Form::hidden('_method','DELETE')}}
+                                        {{Form::button('<i class="fas fa-trash-alt"></i>', ['type' => 'submit', 'class' => ' text-danger border-0 align-top pull-right mr-4']  )}}
+                                    {!!Form::close()!!}
+                                @endif
+                                @endif 
+                            </div>     
+                    @endif 
+                                  
+                
+            </div>
+         </div>
+        @endif              
+    @endforeach
+@else
+    <p>No Document created</p>
+@endif
 </div>
 @endsection
