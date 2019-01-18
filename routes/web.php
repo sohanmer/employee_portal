@@ -20,6 +20,7 @@ Auth::routes();
 
 Route::get('/home', 'Eportalcontroller@index');
 Route::get('/show', 'Eportalcontroller@show');
+Route::post('/store', 'Eportalcontroller@store');
 /*Route::get('/download',function(){
     $file = public_path();
     var_dump($file).die();

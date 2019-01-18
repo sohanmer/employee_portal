@@ -4,7 +4,8 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class directories extends Model
+class directorie extends Model
 {
     protected $table = 'directories';
+
 }

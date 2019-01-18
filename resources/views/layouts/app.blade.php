@@ -13,6 +13,7 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    
 </head>
 <body>
     <div id="app">
@@ -66,26 +67,15 @@
                                     </li>
                                 </ul>
                             </li>
-                            <div class="dropdown mt-3">
-                                    <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                      Add +
-                                    </button>
-                                    <div class="dropdown-menu bg-success" aria-labelledby="dropdownMenuButton">
-                                      <a class="dropdown-item" href="files/create">Document</a>
-                                      <a class="dropdown-item" href="files/create">Spreadsheet</a>
-                                      <a class="dropdown-item" href="fiiles/create">Presentation</a>
-                                      <a class="dropdown-item" href="files/create">Upload PDF</a>
-                                      <a class="dropdown-item" href="#">Upload Folder</a>
-                                    </div>
-                                  </div>
-                                    </ul>
+                                </ul>
                             </li>
                         @endif
                     </ul>
                 </div>
             </div>
         </nav>
-        <div class="mt-4 ml-5">
+       
+        <div class="mt-4">
             @yield('content')
         </div>
     </div>
