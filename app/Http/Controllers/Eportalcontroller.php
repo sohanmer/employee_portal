@@ -27,7 +27,8 @@ class Eportalcontroller extends Controller
      */
     public function create()
     {
-        return view('files.create');
+        $xyz = Directorie::all();
+        return view('files.create')->with('xyz',$xyz);
         
     }
     
@@ -52,6 +53,7 @@ class Eportalcontroller extends Controller
             $fileNameToStore = $filename.'_'.time().'.'.$extension;
             $path = $request->file('cover_image')->storeAs('public/cover_images', $fileNameToStore);
             
+            
             $file = new Directorie;
             $file->owner_id = auth()->user()->id;
             $file->uploaded_by = auth()->user()->email;
@@ -61,12 +63,17 @@ class Eportalcontroller extends Controller
             $file->type = $extension;
             $file->file_name = $filename;
             $file->save();
-            return redirect('/files');
+            if($request->abc != null)
+            {
+                return redirect('/show?abc='.$file->parent_directory)->with("success","Successfully Uploaded");
+            }
+            else{
+                return redirect('/files');
+            }
             
         }              
         
         else{       
-            
             $file = new Directorie;
             $file->owner_id = auth()->user()->id;
             $file->uploaded_by = auth()->user()->email;
@@ -76,7 +83,14 @@ class Eportalcontroller extends Controller
             $file->type = null;
             $file->file_name = $request->input('file_name');
             $file->save();
-            return redirect('/files');
+            if($request->abc != null)
+            {
+                return redirect('/show?abc='.$file->parent_directory)->with("success","Successfully Uploaded");
+            }
+            else{
+                return redirect('/files');
+            }
+            
         }
        
        
@@ -132,13 +146,14 @@ class Eportalcontroller extends Controller
     public function destroy($id)
     {   
         $abc = Directorie::find($id);
-        //var_dump($id).die();
-       if($id == $abc["owner_id"]){
-            $abc = DB::table('directories')->where('owner_id',$id);
+              
+        if($id == $abc["owner_id"]){
+            $abc = DB::table('directories')->where('owner_id',$id);        
             
         }
+        $innercontent = DB::table('directories')->where('parent_directory',$id)->delete();
         $abc->delete();
-        
+               
         return redirect('/files')->with('success','Post Removed');
 
     }

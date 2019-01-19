@@ -17,6 +17,7 @@
     </div>
 @endif
 <div class="container">
+@if(!Auth::guest())
 @if(count($abc)>0)
     @foreach($abc as $file)
         @if($file['parent_directory']==null)
@@ -34,7 +35,7 @@
                 
                     @if($file['cover_image'] == null and $file['parent_directory']==null)
                         <div class="col-md-8 col-sm-8">
-                            <h4><a href="/employee_portal/public/show?abc={{$file->id}}">{{$file['file_name']}}</a></h4>
+                            <h4><a href="/show?abc={{$file->id}}">{{$file['file_name']}}</a></h4>
                             <a href="#"><i class="fas fa-download pull-right ml-4"></i></a>
                             <div data-toggle="tooltip" data-placement="right" title="Uploaded By {{$file['created_at']}} by {{$file['owner_name']}}"><i class="far fa-question-circle pull-right align-bottom"></i></div>
                                 @if(!Auth::guest())
@@ -48,7 +49,7 @@
                         </div>
                     @else                      
                         <div class="col-md-8 col-sm-8">
-                        <h4>{{$file['file_name']}}</h4>
+                        <h4>{{substr($file['file_name'],0,13)}}...</h4>
                         <a href="#"><i class="fas fa-download pull-right ml-4"></i></a>
                         <div data-toggle="tooltip" data-placement="right" title="Uploaded By {{$file['created_at']}} by {{$file['owner_name']}}"><i class="far fa-question-circle pull-right align-bottom"></i></div>
                             @if(!Auth::guest())
@@ -70,6 +71,9 @@
     @endforeach
 @else
     <p>No Document created</p>
+@endif
+@else
+<h1>Please Login First</h1>
 @endif
 </div>
 

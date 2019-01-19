@@ -76,6 +76,7 @@
         </nav>
        
         <div class="mt-4">
+            
             @yield('content')
         </div>
     </div>
