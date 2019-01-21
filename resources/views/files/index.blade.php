@@ -85,7 +85,7 @@
                         @if($file['cover_image'] == null and $file['parent_directory']==null)
                             <div class="col-md-8 col-sm-8">
                                 <h4><a href="/show?abc={{$file->id}}">{{$file['file_name']}}</a></h4>
-                                <a href="#"><i class="fas fa-download pull-right ml-4"></i></a>
+                                <a href="files/create?id={{$file['id']}}"><i class="fas fa-download pull-right ml-4"></i></a>
                                 <div data-toggle="tooltip" data-placement="right" title="Uploaded By {{$file['created_at']}} by {{$file['owner_name']}}"><i class="far fa-question-circle pull-right align-bottom"></i></div>
                                     @if(!Auth::guest())
                                     @if(Auth::user()->id == $file["owner_id"])
@@ -99,7 +99,7 @@
                         @else                      
                             <div class="col-md-8 col-sm-8">
                                 <h4>{{substr($file['file_name'],0,13)}}...</h4>
-                                <a href="#"><i class="fas fa-download pull-right ml-4"></i></a>
+                            <a href="files/create?id={{$file['id']}}"><i class="fas fa-download pull-right ml-4"></i></a>
                                 <div data-toggle="tooltip" data-placement="right" title="Uploaded By {{$file['created_at']}} by {{$file['owner_name']}}"><i class="far fa-question-circle pull-right align-bottom"></i></div>
                                     @if(!Auth::guest())
                                         @if(Auth::user()->id == $file["owner_id"])

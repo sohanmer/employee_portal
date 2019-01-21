@@ -25,10 +25,19 @@ class Eportalcontroller extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
-        $xyz = Directorie::all();
-        return view('files.create')->with('xyz',$xyz);
+    public function create(Request $request)
+    {   
+        $abc = Directorie::find($request->id);
+        
+        if($abc["cover_image"] != null) {     
+        $filename=storage_path("app/".$abc['cover_image']);              
+        return response()->download($filename);
+        }
+        else{
+            var_dump("Folder");
+        }
+
+        
         
     }
     
@@ -74,6 +83,7 @@ class Eportalcontroller extends Controller
         }              
         
         else{       
+                      
             $file = new Directorie;
             $file->owner_id = auth()->user()->id;
             $file->uploaded_by = auth()->user()->email;
@@ -157,15 +167,6 @@ class Eportalcontroller extends Controller
         return redirect('/files')->with('success','Post Removed');
 
     }
-    /*public function download($id){
-    var_dump($id).die();
-        $abc = Directories::find($id);
-          
-        $abc = DB::table('directories')->where('owner_id',$id);
-        var_dump($abc['cover_image']).die();
-        //return response()->download($filename);
-    
-    }
-    // ...*/
+   
 }
 
