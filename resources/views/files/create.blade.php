@@ -1,7 +1,9 @@
+
 @extends("layouts.app")
 
 @section('content')
 <div class="container">
+    
     @if($_GET['abc']!=0)
         {!! Form::open(['action' => 'Eportalcontroller@store', 'method'=>'POST','enctype'=>'multipart/form-data']) !!}
             {{Form::file('cover_image')}}
@@ -27,4 +29,3 @@
     @endif
 </div>
 @endsection
-
