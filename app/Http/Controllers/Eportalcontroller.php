@@ -77,7 +77,7 @@ class Eportalcontroller extends Controller
                 return redirect('/show?abc='.$file->parent_directory)->with("success","Successfully Uploaded");
             }
             else{
-                return redirect('/files');
+                return redirect('/files')->with('success','Successfully Uploaded');
             }
             
         }              
@@ -95,10 +95,10 @@ class Eportalcontroller extends Controller
             $file->save();
             if($request->abc != null)
             {
-                return redirect('/show?abc='.$file->parent_directory)->with("success","Successfully Uploaded");
+                return redirect('/show?abc='.$file->parent_directory)->with("success","Folder Created");
             }
             else{
-                return redirect('/files');
+                return redirect('/files')->with('success','Folder Created');
             }
             
         }
@@ -164,7 +164,7 @@ class Eportalcontroller extends Controller
         $innercontent = DB::table('directories')->where('parent_directory',$id)->delete();
         $abc->delete();
                
-        return redirect('/files')->with('success','Post Removed');
+        return redirect('/files')->with('error','Post Removed');
 
     }
    

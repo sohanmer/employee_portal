@@ -76,7 +76,7 @@
         </nav>
        
         <div class="mt-4">
-            
+            @include("msg.messages")
             @yield('content')
         </div>
     </div>
