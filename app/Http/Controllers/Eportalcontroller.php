@@ -53,7 +53,7 @@ class Eportalcontroller extends Controller
     {       
             if($request->hasFile('cover_image') ){
             $this->validate($request,[
-                'cover_image'=>'mimes:docx,txt,pdf,ppt,jpeg,jpg,png,bmp|nullable|max:10000000'                     
+                'cover_image'=>'mimes:docx,txt,pdf,pptx,jpeg,jpg,png,bmp|nullable|max:10000000'                     
                 ]);
            
             $filenameWithExt = $request->file('cover_image')->getClientOriginalName();
@@ -104,11 +104,8 @@ class Eportalcontroller extends Controller
         }
        
        
-    }
-          
-    
-    
-
+    }   
+   
     /**
      * Display the specified resource.
      *
@@ -120,8 +117,10 @@ class Eportalcontroller extends Controller
 
         $abc = Directorie::find($request->abc);
         $xyz = Directorie::all();
-        return view('files.show')->with('abc',$abc)->with('xyz',$xyz);
-       
+        $abc -> getHierarchy();
+        $hierarchy = $abc -> getHierarchy();
+        return view('files.show')->with('abc',$abc)->with('xyz',$xyz)->with( 'hierarchy', $hierarchy );
+        
     }
 
     /**
