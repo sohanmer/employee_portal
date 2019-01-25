@@ -11,7 +11,7 @@
                       @foreach($hierarchy as $parent)
                       @foreach($xyz as $file)
                         @if($file['file_name']== $parent)
-                      <li class="breadcrumb-item"><a href="/show?abc={{$file->id}}">{{$parent}}</a></li>
+                      <li class="breadcrumb-item"><a href="{{ URL::route('files.show', $file->id) }}">{{$parent}}</a></li>
                       @endif
                       @endforeach
                       @endforeach
@@ -20,9 +20,7 @@
                   </nav></strong></h4></div>            
             <button class="btn btn-primary dropdown-toggle float-right pull-right align-middle " type="button" id="dropdownMenuButton" data-toggle="dropdown" >
             New
-            </button>
-                     
-    
+            </button>         
             <div class="dropdown-menu bg-default" aria-labelledby="dropdownMenuButton">
                     <a class="dropdown-item" data-toggle="modal" data-target="#fileUpload">File</a>
                     <a class="dropdown-item" data-toggle="modal" data-target="#createFolder">Folder</a>
@@ -103,7 +101,7 @@
                                                     <button class="btn btn-secondary border-0 bg-transparent text-secondary pull-right align-top" style="position:absolute;top:-26px;right:-45px" type="button" id="folder" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                             <i class="fas fa-ellipsis-v"></i>
                                                     </button>
-                                                <h5><a href="/show?abc={{$file->id}}">{{$file['file_name']}}</a></span></h5>
+                                                <h5><a href="{{ URL::route('files.show', $file->id) }}">{{$file['file_name']}}</a></span></h5>
                                                                                                                                     
                                                 <div class="dropdown-menu" aria-labelledby="folder">
                                                   <a class="mb-2 dropdown-item"><i class="far fa-question-circle mr-5 ml-3"></i>  Details</a>

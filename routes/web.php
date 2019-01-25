@@ -19,7 +19,7 @@ Route::resource('files','Eportalcontroller');
 Auth::routes();
 
 Route::get('/home', 'Eportalcontroller@index');
-Route::get('/show', 'Eportalcontroller@show');
 Route::post('/store', 'Eportalcontroller@store');
+Route::get('files/{filesID}','Eportalcontroller@show')->name('files.show');
 
 

@@ -88,7 +88,7 @@
                                         <button class="btn btn-secondary border-0 bg-transparent text-secondary pull-right align-top" style="position:absolute;top:-26px;right:-45px" type="button" id="folder" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                 <i class="fas fa-ellipsis-v"></i>
                                         </button>
-                                    <h5><a href="/show?abc={{$file->id}}">{{$file['file_name']}}</a></span></h5>
+                                    <h5><a href="{{ URL::route('files.show', $file->id) }}">{{$file['file_name']}}</a></span></h5>
                                        
                                     <div class="dropdown-menu" aria-labelledby="folder">
                                       <a class="mb-2 dropdown-item"><i class="far fa-question-circle mr-5 ml-3"></i>  Details</a>
