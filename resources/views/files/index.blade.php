@@ -52,8 +52,8 @@
       </div>
 <div style="height:4em">
     <div class="container">
-    <div class="d-inline-block font-weight-bold ml-4"><h4><strong>HOME</strong></h4></div>            
-            <button class="btn btn-primary dropdown-toggle float-right pull-right align-middle " type="button" id="dropdownMenuButton" data-toggle="dropdown" >
+    <div class="d-inline-block font-weight-bold ml-4"><h4><strong>HOME</strong></h4></div>    
+            <button class="btn btn-primary dropdown-toggle float-right pull-right align-middle ml-3" type="button" id="dropdownMenuButton" data-toggle="dropdown" >
             New
             </button>
     
@@ -61,9 +61,13 @@
             <a class="dropdown-item" data-toggle="modal" data-target="#fileUpload">File</a>
             <a class="dropdown-item" data-toggle="modal" data-target="#createFolder">Folder</a>
             </div>
-        </div>
+        
+            {!! Form::open(['action'=>'Eportalcontroller@search', 'method'=>'POST', 'enctype'=>'multipart/form-data','class'=> 'form-inline pull-right']) !!}
+                {{Form::text('search')}}                       
+                {{Form::button('<i class="fas fa-search "></i>', ['type' => 'submit', 'class' => ' border-0 align-top ml-sm-1 btn btn-primary'])}}
+            {!! Form::close() !!}    
     </div>
-   
+</div>
 @endif
 <div class="container">
     @if(!Auth::guest())

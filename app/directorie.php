@@ -19,12 +19,10 @@ class directorie extends Model
             $parentDirectory=Directorie::find($parentDirectory);
             $parentFile = $parentDirectory['file_name'];
             $parentDirectory = $parentDirectory->parent_directory;
-            //$parentFile = $parentDirectory['file_name'];
             array_push($hierarchy,$parentFile);
             
         }
             return array_reverse($hierarchy);
     }
-
 }
 

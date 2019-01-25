@@ -18,13 +18,17 @@
                       <li class="breadcrumb-item active" aria-current="page">{{$abc['file_name']}}</li>
                     </ol>
                   </nav></strong></h4></div>            
-            <button class="btn btn-primary dropdown-toggle float-right pull-right align-middle " type="button" id="dropdownMenuButton" data-toggle="dropdown" >
+            <button class="btn btn-primary dropdown-toggle float-right pull-right align-middle ml-3 " type="button" id="dropdownMenuButton" data-toggle="dropdown" >
             New
             </button>         
             <div class="dropdown-menu bg-default" aria-labelledby="dropdownMenuButton">
                     <a class="dropdown-item" data-toggle="modal" data-target="#fileUpload">File</a>
                     <a class="dropdown-item" data-toggle="modal" data-target="#createFolder">Folder</a>
             </div>
+                {!! Form::open(['action'=>'Eportalcontroller@search', 'method'=>'POST', 'enctype'=>'multipart/form-data','class'=> 'form-inline pull-right']) !!}
+                    {{Form::text('search')}}                       
+                    {{Form::button('<i class="fas fa-search "></i>', ['type' => 'submit', 'class' => ' border-0 align-top ml-sm-1 btn btn-primary'])}}
+                {!! Form::close() !!}    
         </div>
     </div>
     

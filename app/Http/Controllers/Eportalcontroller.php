@@ -166,6 +166,18 @@ class Eportalcontroller extends Controller
         return redirect('/files')->with('error','Post Removed');
 
     }
-   
+   public function search(Request $request){
+        $allRecord = Directorie::all();
+        $searchResult = DB::table('directories')->where('file_name',$request->search)->pluck('file_name');
+        $typeFound = DB::table('directories')->where('file_name',$request->search)->pluck('type');
+        if(count($searchResult)>0){
+            return view('files.result')->with('searchResult',$searchResult)->with('typeFound',$typeFound)->with('allRecord',$allRecord);
+        }
+        else{
+            return redirect('/files')->with('error','No File(s) Found');
+        }
+
+}
+
 }
 
