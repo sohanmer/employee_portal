@@ -2,8 +2,10 @@
 
 @section('content')
 <div class="container">
+        <div class=" font-weight-bold ml-4"><h4><a href="/home" style="text-decoration:none"><strong>HOME</strong></a></h4></div>            
+@for($i=0; $i<count($searchResult); $i++ )
 @foreach($allRecord as $file)
-@if($file['file_name']==$searchResult[0])
+@if($file['file_name']==$searchResult[$i])
 <div class="well col-md-3 mt-5 mr-5 ml-5 mb-2">
         <div class="row" style="height:25px">
             <div class="col-md-3 col-sm-3"> 
@@ -72,9 +74,8 @@
 @endphp
 @endif
 @endforeach
-@if($flag!=1){
-<h1>No Record Found</h1>
-@endif
+@endfor
+
 </div>
 @endsection
     

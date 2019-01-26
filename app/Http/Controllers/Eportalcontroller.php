@@ -74,7 +74,7 @@ class Eportalcontroller extends Controller
             $file->save();
             if($request->abc != null)
             {
-                return redirect('/show?abc='.$file->parent_directory)->with("success","Successfully Uploaded");
+                return redirect('/files'.'/'.$file->parent_directory)->with("success","Successfully Uploaded");
             }
             else{
                 return redirect('/files')->with('success','Successfully Uploaded');
@@ -95,7 +95,7 @@ class Eportalcontroller extends Controller
             $file->save();
             if($request->abc != null)
             {
-                return redirect('/show?abc='.$file->parent_directory)->with("success","Folder Created");
+                return redirect('/files'.'/'. $file->parent_directory)->with("success","Folder Created");
             }
             else{
                 return redirect('/files')->with('success','Folder Created');
@@ -160,16 +160,21 @@ class Eportalcontroller extends Controller
             $abc = DB::table('directories')->where('owner_id',$id);        
             
         }
+        $parent = DB::table('directories')->where('id',$id)->pluck('parent_directory');
         $innercontent = DB::table('directories')->where('parent_directory',$id)->delete();
         $abc->delete();
-               
+        if($parent == null){       
         return redirect('/files')->with('error','Post Removed');
-
+        }
+        else{
+            return redirect('/files'.'/'.$parent[0])->with('error','Post Removed');   
+        }
     }
    public function search(Request $request){
         $allRecord = Directorie::all();
-        $searchResult = DB::table('directories')->where('file_name',$request->search)->pluck('file_name');
-        $typeFound = DB::table('directories')->where('file_name',$request->search)->pluck('type');
+        $searchResult = DB::table('directories')->where('file_name','like',$request->search.'%')->pluck('file_name');
+        $typeFound = DB::table('directories')->where('file_name','like',$request->search.'%')->pluck('type');
+        //var_dump($searchResult).die();
         if(count($searchResult)>0){
             return view('files.result')->with('searchResult',$searchResult)->with('typeFound',$typeFound)->with('allRecord',$allRecord);
         }
