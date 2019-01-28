@@ -89,7 +89,26 @@
                                 <h1 style="margin-top:0"><i class="fas fa-folder"></i></h1>
                             @endif
                         </div>
-                        
+                        <div class="modal fade" id="folderinfo{{$file->id}}" tabindex="-1" role="dialog" aria-labelledby="folderinfo" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                  <div class="modal-content">
+                                    <div class="modal-header">
+                                      <h5 class="modal-title" id="folderinfo">Item Details</h5>
+                                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                      </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <h6>Name:   {{$file["file_name"]}}</h6> 
+                                        <h6>Owned By:   {{$file["owner_name"]}}</h6>
+                                        <h6>Created On:    {{date('d-m-Y',strtotime($file["created_at"]))}}</h6>            
+                                    </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    </div>
+                                  </div>
+                                </div>   
                         @if($file['cover_image'] == null and $file['parent_directory']==null)
                         <div class="col-md-8 col-sm-8">
                                 <div class="dropdown">
@@ -99,7 +118,7 @@
                                     <h5><a href="{{ URL::route('files.show', $file->id) }}">{{$file['file_name']}}</a></h5>
                                        
                                     <div class="dropdown-menu" aria-labelledby="folder">
-                                      <a class="mb-2 dropdown-item"><i class="far fa-question-circle mr-5 ml-3"></i>  Details</a>
+                                      <a class="mb-2 dropdown-item" data-toggle="modal" data-target="#folderinfo{{$file->id}}"><i class="far fa-question-circle mr-5 ml-3"></i>  Details</a>
                                       <div class="dropdown-divider"></div>
                                       <a class="dropdown-item" >
                                             @if(!Auth::guest())
@@ -123,7 +142,7 @@
                                 <h5>{{substr($file['file_name'],0,8)}}... ({{$file['type']}})</h5>
                                             <div class="dropdown-menu" aria-labelledby="file">
                                             <a href="files/create?id={{$file['id']}}" class="dropdown-item"><i class="fas fa-download  ml-4 mr-4"></i>Download</a>
-                                            <a class="mb-2 dropdown-item"><i class="far fa-question-circle mr-3 ml-4"></i>  Details</a>
+                                            <a class="mb-2 dropdown-item" data-toggle="modal" data-target="#folderinfo{{$file->id}}"><i class="far fa-question-circle mr-3 ml-4"></i>  Details</a>
                                             <div class="dropdown-divider"></div>
                                            
                                     @if(!Auth::guest())
@@ -177,11 +196,12 @@
                                         <h3><th><a href="{{ URL::route('files.show', $file->id) }}" ><i class="fas fa-folder mr-2 "></i>{{$file['file_name']}}</a></th></h3>
                                 @endif
                               <td>{{$file['owner_name']}}</td>
-                                <td>{{$file['updated_at']}}</td>
+                                <td>{{date('d-m-Y',strtotime($file["updated_at"]))}}</td>
                                 <td><ul class="list-inline">
-                                        <li><a class="mb-2"><i class="far fa-question-circle "></i></a></li>
                                         @if($file['type']!=null)
                                         <li><a href="files/create?id={{$file['id']}}" class="dropdown-item"><i class="fas fa-download "></i></a></li>
+                                        @else
+                                        <li style="padding-left:3.5em;"></li>
                                         @endif
                                         <li>
                                     @if(!Auth::guest())
