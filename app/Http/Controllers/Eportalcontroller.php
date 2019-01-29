@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use App\Directorie;
 use DB;
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
 
 class Eportalcontroller extends Controller
 {
@@ -15,7 +17,8 @@ class Eportalcontroller extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {   
+    {
+       
         $abc = Directorie::all();
         return view('files.index')->with('abc', $abc);
     }
@@ -141,11 +144,21 @@ class Eportalcontroller extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
-        //
+    public function update(Request $request)
+    {   
+        $pdirectory = Directorie::find($request->pdirectory); 
+        DB::table("directories")->where('id',$request->id)->update(["file_name"=>$request->rename]);
+        if($request->page=="home"){
+        return redirect('/files')->with("success","File Renamed Successfully");
+        }
+        elseif($request->page=="show"){
+            return redirect("/files"."/".$pdirectory->id)->with("success","File Renamed Successfully");
+        }
+        else
+            return redirect("/files")->with("success","File Renamed Successfully");
     }
 
+   
     /**
      * Remove the specified resource from storage.
      *

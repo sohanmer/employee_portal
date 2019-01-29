@@ -22,5 +22,7 @@ Route::get('/home', 'Eportalcontroller@index');
 Route::post('/store', 'Eportalcontroller@store');
 Route::post('/search', 'Eportalcontroller@search');
 Route::get('files/{filesID}','Eportalcontroller@show')->name('files.show');
+Route::post('/update','Eportalcontroller@update');
+Route::post('/updat','Eportalcontroller@updat');
 
 

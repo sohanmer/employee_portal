@@ -3,12 +3,14 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-
+use HasRoles;
 class directorie extends Model
 {
     protected $table = 'directories';
-    
+   
 
+    protected $guard_name = 'web';
+    
     public function getHierarchy(){
         $currentDirectory = $this->id;
         $parentDirectory = $this->parent_directory;

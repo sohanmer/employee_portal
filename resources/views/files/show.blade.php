@@ -70,7 +70,7 @@
             <div class="modal-body">
                 <center>   
                     {!! Form::open(['action' => 'Eportalcontroller@store', 'method'=>'POST','enctype'=>'multipart/form-data']) !!}
-                        {{Form::text('file_name')}}          
+                        {{Form::text('file_name', 'Folder Name')}}          
                         {{Form::hidden('abc', $abc['id'])}}             
                         {{Form::submit('Submit', ['class'=> 'btn btn-primary'])}}
                     {!! Form::close() !!} 
@@ -100,6 +100,32 @@
                                             <h1 style="margin-top:0"><i class="fas fa-folder"></i></h1>
                                         @endif
                                     </div>
+                                    <div class="modal fade" id="rename{{$file->id}}" tabindex="-1" role="dialog" aria-labelledby="rename" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                  <div class="modal-content">
+                                    <div class="modal-header">
+                                      <h5 class="modal-title" id="fileUploadLabel">Rename</h5>
+                                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                      </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <center>   
+                                            {!! Form::open(['action' => 'Eportalcontroller@update', 'method'=>'POST','enctype'=>'multipart/form-data']) !!}
+                                                {{Form::hidden('page', 'show')}} 
+                                                {{Form::hidden('pdirectory',$file['parent_directory'])}}
+                                                {{Form::hidden('id', $file['id'])}} 
+                                                {{Form::text('rename','New Name')}}                       
+                                                {{Form::submit('Submit', ['class'=> 'btn btn-primary'])}}
+                                            {!! Form::close() !!} 
+                                        </center>                 
+                                    </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    </div>
+                                  </div>
+                                </div>
                                     <div class="modal fade" id="folderinfo{{$file->id}}" tabindex="-1" role="dialog" aria-labelledby="folderinfo" aria-hidden="true">
                                             <div class="modal-dialog" role="document">
                                               <div class="modal-content">
@@ -140,6 +166,7 @@
                                                                 {{Form::hidden('_method','DELETE')}}
                                                                 {{Form::button('<i class="fas fa-trash-alt mr-5"></i>Delete', ['type' => 'submit', 'class' => ' text-danger border-0 align-top bg-transparent border-0 dropdown-item']  )}}                                              
                                                             {!!Form::close()!!}
+                                                            <a class="mb-2 dropdown-item" data-toggle="modal" data-target="#rename{{$file->id}}"><i class="fas fa-edit  ml-4 mr-4"></i>Rename</a>
                                                         @endif
                                                         @endif 
                                                  </a>                                       
@@ -165,6 +192,7 @@
                                                         {{Form::hidden('_method','DELETE')}}
                                                         {{Form::button('<i class="fas fa-trash-alt"></i>', ['type' => 'submit', 'class' => ' text-danger border-0 align-top border-0 bg-transparent mr-2 ml-3']  )}} Delete
                                                     {!!Form::close()!!}
+                                                    <a class="mb-2 dropdown-item" data-toggle="modal" data-target="#rename{{$file->id}}"><i class="fas fa-edit  ml-4 mr-4"></i>Rename</a>
                                                 @endif
                                             @endif 
                                         </a>                                       
@@ -212,15 +240,44 @@
                                         @else
                                         <li style="padding-left:3.5em;"></li>
                                         @endif
-                                        <li>
+                                        
                                     @if(!Auth::guest())
                                         @if(Auth::user()->id == $file["owner_id"])
+                                        <li>
                                             {!!Form::open(['action'=>['Eportalcontroller@destroy', $file['id']], 'method'=>'POST'])!!}
                                                 {{Form::hidden('_method','DELETE')}}
                                                 {{Form::button('<i class="fas fa-trash-alt"></i>', ['type' => 'submit', 'class' => ' text-danger border-0 border-0 bg-transparent'] )}}
-                                            {!!Form::close()!!}                                                      
+                                            {!!Form::close()!!} 
+                                        </li>
+                                        <div class="modal fade" id="renamelist{{$file->id}}" tabindex="-1" role="dialog" aria-labelledby="rename" aria-hidden="true">
+                                                <div class="modal-dialog" role="document">
+                                                  <div class="modal-content">
+                                                    <div class="modal-header">
+                                                      <h5 class="modal-title" id="fileUploadLabel">Rename</h5>
+                                                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                      </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <center>   
+                                                            {!! Form::open(['action' => 'Eportalcontroller@update', 'method'=>'POST','enctype'=>'multipart/form-data']) !!}
+                                                                {{Form::hidden('page', 'show')}} 
+                                                                {{Form::hidden('pdirectory',$file['parent_directory'])}}
+                                                                {{Form::hidden('id', $file['id'])}} 
+                                                                {{Form::text('rename')}}                       
+                                                                {{Form::submit('Submit', ['class'=> 'btn btn-primary'])}}
+                                                            {!! Form::close() !!} 
+                                                        </center>                 
+                                                    </div>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                    </div>
+                                                  </div>
+                                                </div>
+                                            <li  data-toggle="modal" data-target="#renamelist{{$file->id}}"><i class="fas fa-edit  ml-4 mr-4"></i></li>                                                     
                                         @endif
-                                    @endif </li>
+                                    @endif 
                                     
                                    </ul>
                                 </td>
