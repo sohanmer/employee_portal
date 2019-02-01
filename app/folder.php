@@ -4,9 +4,13 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use HasRoles;
-class directorie extends Model
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
+
+
+class folder extends Model
 {
-    protected $table = 'directories';
+    protected $table = 'folders';
    
 
     protected $guard_name = 'web';
@@ -18,7 +22,7 @@ class directorie extends Model
         $hierarchy = array();
         while($parentDirectory != null){
             
-            $parentDirectory=Directorie::find($parentDirectory);
+            $parentDirectory=folder::find($parentDirectory);
             $parentFile = $parentDirectory['file_name'];
             $parentDirectory = $parentDirectory->parent_directory;
             array_push($hierarchy,$parentFile);

@@ -48,12 +48,16 @@
                             <li><a href="{{ route('login') }}">Login</a></li>
                             <li><a href="{{ route('register') }}">Register</a></li>
                         @else
+                        @hasrole('admin')
+                                <li><a href="/admin" role="button" aria-expanded="false">
+                                        Admin Panel <span ></span>
+                                    </a></li>       
+                        @endhasrole 
                             <li class="dropdown">
                                 <a href="#" data-toggle="dropdown" role="button" aria-expanded="false">
                                     {{ Auth::user()->name }} <span class="caret"></span>
-                                </a>
-
-                                <ul class="dropdown-menu" role="menu">
+                                </a>                        
+                                    <ul class="dropdown-menu" role="menu">
                                     <li>
                                         <a href="{{ route('logout') }}"
                                             onclick="event.preventDefault();
