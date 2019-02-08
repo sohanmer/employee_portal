@@ -17,14 +17,14 @@ class AdminController extends Controller
     public function admin()
     {   
         if(!Auth::guest())
-        { 
-            $itemcounts=folder::all();
-            $folderCount=folder::all()->where('type',null);
+        {  
+            $itemcounts=Folder::all();
+            $folderCount=Folder::all()->where('type',null);
             $users = Auth::user()->all();
             $counts = array();
-            $mostViewed = folder::where('type','!=', null )->orderBy('count', 'desc')->take(10)->get();
+            $mostViewed = Folder::where('type','!=', null )->orderBy('count', 'desc')->take(10)->get();
             foreach($users as $user){
-                $items = folder::all()->where('uploaded_by',$user['email']);
+                $items = Folder::all()->where('uploaded_by',$user['email']);
                 array_push($counts , count($items));
        
         }
@@ -62,7 +62,7 @@ class AdminController extends Controller
         
     public function admindelete(Request $request)
     {   
-        $abc = folder::find($request->id);
+        $abc = Folder::find($request->id);
               
         if($request->id == $abc["owner_id"])
         {

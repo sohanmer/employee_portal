@@ -1,5 +1,6 @@
 @extends("layouts.app") 
-@section("content") @hasrole('admin')
+@section("content") 
+@hasrole('admin')
 
 <div class="container-fluid">
 
@@ -36,15 +37,17 @@
                         <th scope="col">Action</th>
                     </tr>
                 </thead>
-                @for($i=0; $i
-                <$total; $i++) <tr>
+                @for($i=0; $i <$total; $i++) <tr>
                     <td>{{$users[$i]['name']}}</td>
                     <td>{{$users[$i]['email']}}</td>
                     <td>{{$counts[$i]}}</td>
-                    <td> {!!Form::open(['action'=>'AdminController@deleteUser', 'method'=>'get','enctype'=>'multipart/form-data'])!!}
-                        {{Form::hidden('id',$users[$i]->id)}} {{Form::hidden('_method','DELETE')}} {{Form::button('
-                        <i class="fas fa-trash-alt"></i>', ['type' => 'submit', 'class' => ' text-danger border-0 align-top
-                        border-0 bg-transparent mr-2 ml-3'] )}} {!!Form::close()!!}
+                    <td>
+                        {!!Form::open(['action'=>'AdminController@deleteUser', 'method'=>'get','enctype'=>'multipart/form-data'])!!}
+                            {{Form::hidden('id',$users[$i]->id)}} 
+                            {{Form::hidden('_method','DELETE')}} 
+                            {{Form::button('<i class="fas fa-trash-alt"></i>', ['type' => 'submit', 'class' => ' text-danger border-0 align-top border-0 bg-transparent mr-2 ml-3'] )}}
+                        {!!Form::close()!!}
+                    
                     </td>
                     </tr>
                     @endfor
@@ -59,7 +62,9 @@
                 <thead>
                     <tr>
                         <th scope="col">Name</th>
-                        <th scope="col">Email</th>
+                        <th scope="col">Uploaded By</th>
+                        <th scopr="col">Type</th>
+                        <th scope="col">Owner</th>
                         <th scope="col">Frequency</th>
                         <th scope="col">Action</th>
                     </tr>
@@ -68,12 +73,15 @@
                 <count($mostViewed); $i++) <tr>
                     <td>{{$mostViewed[$i]['file_name']}}</td>
                     <td>{{$mostViewed[$i]['uploaded_by']}}</td>
+                    <td>{{$mostViewed[$i]['type']}}</td> 
+                    <td>{{$mostViewed[$i]['owner_name']}}</td> 
                     <td>@if($mostViewed[$i]['count'] != null) {{$mostViewed[$i]['count']}} @else 0 @endif
                     </td>
                     <td> {!!Form::open(['action'=>'AdminController@admindelete', 'method'=>'get','enctype'=>'multipart/form-data'])!!}
-                        {{Form::hidden('id',$mostViewed[$i]->id)}} {{Form::hidden('_method','DELETE')}} {{Form::button('
-                        <i class="fas fa-trash-alt"></i>', ['type' => 'submit', 'class' => ' text-danger border-0 align-top
-                        border-0 bg-transparent mr-2 ml-3'] )}} {!!Form::close()!!}
+                            {{Form::hidden('id',$mostViewed[$i]->id)}} 
+                            {{Form::hidden('_method','DELETE')}} 
+                            {{Form::button('<i class="fas fa-trash-alt"></i>', ['type' => 'submit', 'class' => ' text-danger border-0 align-top border-0 bg-transparent mr-2 ml-3'] )}} 
+                        {!!Form::close()!!}
                     </td>
                     </tr>
                     @endfor

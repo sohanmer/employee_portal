@@ -18,6 +18,8 @@ Route::resource('files','ActionController');
 
 Auth::routes();
 
+
+
 Route::get('/home', 'ActionController@index');
 Route::post('/store', 'ActionController@store');
 Route::post('/search', 'ActionController@search');
@@ -26,5 +28,6 @@ Route::post('/update','ActionController@update');
 Route::get('/admin','AdminController@admin');
 Route::get('/delete','AdminController@deleteUser');
 Route::get('/admindelete','AdminController@admindelete');
+Route::get('/download', "ActionController@download");
 
 

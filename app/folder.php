@@ -22,7 +22,7 @@ class folder extends Model
         $hierarchy = array();
         while($parentDirectory != null){
             
-            $parentDirectory=folder::find($parentDirectory);
+            $parentDirectory=Folder::find($parentDirectory);
             $parentFile = $parentDirectory['file_name'];
             $parentDirectory = $parentDirectory->parent_directory;
             array_push($hierarchy,$parentFile);
