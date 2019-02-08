@@ -123,7 +123,6 @@ class ActionController extends Controller
             
         }
         $file = Folder::find($fileId);
-        Folder::where('id',$fileId)->update(['count'=> $file['count']+ 1]);
         $hierarchy = $file -> getHierarchy();
 
         return view('files.show')->with([
@@ -199,14 +198,12 @@ class ActionController extends Controller
         
     }
     public function download(Request $request)
-    {
-        $file = Folder::where('id', $request->id)->pluck('cover_image');
-        return Response::download(trim(public_path(),'public').'storage/app/'.$file[0]);
-
-        
-
-       
-    }
+    {   
+        $file = Folder::find($request->id);
+        $filePath = Folder::where('id', $request->id)->pluck('cover_image');
+        Folder::where('id',$request->id)->update(['count'=> $file['count']+ 1]);
+        return Response::download(trim(public_path(),'public').'storage/app/'.$filePath[0]);
+       }
     
 
 }

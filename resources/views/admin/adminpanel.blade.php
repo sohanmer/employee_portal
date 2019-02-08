@@ -8,7 +8,7 @@
         <h4><strong>Admin Panel</strong></h4>
     </div>
     <button class="btn btn-primary float-right pull-right align-middle mr-5" type="button">
-            <a href="/home" class="text-white" style="text-decoration:none">
+            <a href="/home?type=" class="text-white" style="text-decoration:none">
                 Home
             </a>
         </button>
@@ -57,7 +57,7 @@
     </div>
     <div class="col-md-6" style="display: none" id="mostviewed">
         <div>
-            <h4 class="bold "><strong> Most Viewed Items</strong></h4>
+            <h4 class="bold "><strong> Most Downloaded Items</strong></h4>
             <table class="table">
                 <thead>
                     <tr>
@@ -69,13 +69,17 @@
                         <th scope="col">Action</th>
                     </tr>
                 </thead>
-                @for($i=0; $i
-                <count($mostViewed); $i++) <tr>
+                @for($i=0; $i<count($mostViewed); $i++) 
+                <tr>
                     <td>{{$mostViewed[$i]['file_name']}}</td>
                     <td>{{$mostViewed[$i]['uploaded_by']}}</td>
                     <td>{{$mostViewed[$i]['type']}}</td> 
                     <td>{{$mostViewed[$i]['owner_name']}}</td> 
-                    <td>@if($mostViewed[$i]['count'] != null) {{$mostViewed[$i]['count']}} @else 0 @endif
+                    <td>
+                        @if($mostViewed[$i]['count'] != null)
+                            {{$mostViewed[$i]['count']}} 
+                        @else 0 
+                        @endif
                     </td>
                     <td> {!!Form::open(['action'=>'AdminController@admindelete', 'method'=>'get','enctype'=>'multipart/form-data'])!!}
                             {{Form::hidden('id',$mostViewed[$i]->id)}} 
