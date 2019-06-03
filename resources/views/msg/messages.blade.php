@@ -1,3 +1,4 @@
+<div class="container">
 @if(session('success'))
     <div class="alert alert-success">
         {{session('success')}}
@@ -5,6 +6,7 @@
 @endif
 @if(session('error'))
     <div class="alert alert-danger">
-        {{session('success')}}
+        {{session('error')}}
     </div>
 @endif
+</div>

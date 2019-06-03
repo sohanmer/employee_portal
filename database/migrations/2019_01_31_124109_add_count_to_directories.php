@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddTypeToDirectories extends Migration
+class AddCountToDirectories extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,10 @@ class AddTypeToDirectories extends Migration
      */
     public function up()
     {
-        Schema::table('directories', function($table){
-            $table->string('type')->nullable();
+        Schema::table('folders', function($table) {
+            $table->integer('count')->nullable();
         });
+    
     }
 
     /**
@@ -25,8 +26,8 @@ class AddTypeToDirectories extends Migration
      */
     public function down()
     {
-        Schema::table('directories', function(){
-            $table->dropColumn('type')->nullable();
+        Schema::table('folders', function($table) {
+            $table->dropColumn('count')->nullable();
         });
     }
 }

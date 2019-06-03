@@ -14,12 +14,20 @@
 Route::get('/', function () {
     return view('welcome');
 });
-Route::resource('files','Eportalcontroller');
+Route::resource('files','ActionController');
 
 Auth::routes();
 
-Route::get('/home', 'Eportalcontroller@index');
-Route::get('/show', 'Eportalcontroller@show');
-Route::post('/store', 'Eportalcontroller@store');
+
+
+Route::get('/home', 'ActionController@index');
+Route::post('/store', 'ActionController@store');
+Route::post('/search', 'ActionController@search');
+Route::get('files/{fileId}','ActionController@show')->name('files.show');
+Route::post('/update','ActionController@update');
+Route::get('/admin','AdminController@admin');
+Route::get('/delete','AdminController@deleteUser');
+Route::get('/admindelete','AdminController@admindelete');
+Route::get('/download', "ActionController@download");
 
 
